@@ -1,6 +1,7 @@
 import axios from "axios";
 import { getAccessToken, refreshToken } from "../services/tokenService";
 const API_URI = process.env.REACT_APP_API_URI;
+
 const api = axios.create({
 	baseURL: API_URI,
 	headers: {

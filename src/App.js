@@ -1,29 +1,12 @@
 import React from "react";
-import { AuthProvider, useAuth } from "./contexts/AuthContext";
-import Login from "./components/Login";
-import Chat from "./components/Chat";
-import NavigationBar from "./components/NavigationBar";
-import { getAccessToken, getRefreshToken } from "./services/tokenService";
+
+import { RouterProvider } from "react-router-dom";
+import router from "./routes/Router";
 
 export default function App() {
-	const { user } = useAuth();
-
 	return (
-		<AuthProvider>
-			<NavigationBar />
-			<div>
-				{!user ? (
-					<Login />
-				) : (
-					<>
-						<p>Logged in successfully!</p>
-						<p>Token: {getAccessToken()}</p>
-						<p>Refresh Token: {getRefreshToken()}</p>
-						<br />
-						<Chat />
-					</>
-				)}
-			</div>
-		</AuthProvider>
+		<>
+			<RouterProvider router={router} />
+		</>
 	);
 }

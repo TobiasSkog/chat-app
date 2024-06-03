@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { connection, startConnection } from "../services/singalRService";
+import { useAuth } from "../contexts/AuthContext";
 
 export default function Chat({ userName }) {
 	const [messages, setMessages] = useState([]);
 	const [message, setMessage] = useState("");
-	const [user, setUser] = useState(userName);
-
+	const { user } = useAuth();
 	useEffect(() => {
 		startConnection();
 		connection.on("ReceiveMessage", (user, message) => {
@@ -15,7 +15,6 @@ export default function Chat({ userName }) {
 		return () => {
 			connection.off("RecieveMessage");
 			connection.stop();
-			setUser("");
 		};
 	}, []);
 

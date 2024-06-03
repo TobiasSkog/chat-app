@@ -1,19 +1,27 @@
-import React, { createContext, useState, useContext } from "react";
+// import React, { createContext, useState, useContext } from "react";
+// import { serviceLogin, serviceLogout } from "../services/loginService";
+// const AuthContext = createContext();
 
-const AuthContext = createContext();
+// export const useAuth = () => {
+// 	return useContext(AuthContext);
+// };
 
-export const AuthProvider = ({ children }) => {
-	const [user, setUser] = useState(null);
+// export const AuthProvider = ({ children }) => {
+// 	const [user, setUser] = useState(null);
 
-	const login = (userData) => {
-		setUser(userData);
-	};
+// 	const login = async (username, password) => {
+// 		const result = await serviceLogin(username, password);
+// 		if (result.success) {
+// 			setUser(result.user);
+// 		} else {
+// 			alert(result.message);
+// 		}
+// 	};
 
-	const logout = () => {
-		setUser(null);
-	};
+// 	const logout = () => {
+// 		serviceLogout();
+// 		setUser(null);
+// 	};
 
-	return <AuthContext.Provider value={{ user, login, logout }}>{children}</AuthContext.Provider>;
-};
-
-export const useAuth = () => useContext(AuthContext);
+// 	return <AuthContext.Provider value={{ user, login, logout }}>{children}</AuthContext.Provider>;
+// };

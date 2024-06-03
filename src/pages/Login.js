@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { TextField, InputAdornment, IconButton, Button } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { login } from "../services/loginService";
-import { useAuth } from "../contexts/AuthContext";
+import { useOutletContext } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import "./login.css";
 
 export default function Login() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [showPassword, setShowPassword] = useState(false);
-	const { login: authLogin } = useAuth();
+	const context = useOutletContext();
 
 	const handleClickShowPassword = () => {
 		setShowPassword(!showPassword);
@@ -17,12 +17,7 @@ export default function Login() {
 
 	const handleLogin = async (e) => {
 		e.preventDefault();
-		const result = await login(username, password);
-		if (result.success) {
-			authLogin({ username });
-		} else {
-			alert(result.message);
-		}
+		await context.login(username, password);
 	};
 
 	return (
