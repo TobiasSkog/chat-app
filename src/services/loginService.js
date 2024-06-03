@@ -1,13 +1,13 @@
 import { deleteTokens, setTokens } from "./tokenService";
 
-export const serviceLogin = async (username, password) => {
+export const serviceLogin = async (username, password, rememberMe) => {
 	const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
 	const response = await fetch(`${API_ENDPOINT}/auth/login`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
 		},
-		body: JSON.stringify({ username, password }),
+		body: JSON.stringify({ username, password, rememberMe }),
 	});
 
 	if (response.ok) {

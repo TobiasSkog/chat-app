@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { connection, startConnection } from "../services/singalRService";
-import { useAuth } from "../contexts/AuthContext";
+import { useOutletContext } from "react-router-dom";
 
 export default function Chat({ userName }) {
 	const [messages, setMessages] = useState([]);
 	const [message, setMessage] = useState("");
-	const { user } = useAuth();
+	const { user } = useOutletContext();
+	const username = user.username;
 	useEffect(() => {
 		startConnection();
-		connection.on("ReceiveMessage", (user, message) => {
-			setMessages((prevMessages) => [...prevMessages, { user, message }]);
+		connection.on("ReceiveMessage", (username, message) => {
+			setMessages((prevMessages) => [...prevMessages, { username, message }]);
 		});
 
 		return () => {
@@ -20,7 +21,7 @@ export default function Chat({ userName }) {
 
 	const sendMessage = async () => {
 		if (message.trim() === "") return;
-		await connection.invoke("SendMessage", user, message);
+		await connection.invoke("SendMessage", username, message);
 		setMessage("");
 	};
 
@@ -30,7 +31,7 @@ export default function Chat({ userName }) {
 			<div>
 				{messages.map((msg, index) => (
 					<div key={index}>
-						<strong>{msg.user}</strong>: {msg.message}
+						<strong>{msg.username}</strong>: {msg.message}
 					</div>
 				))}
 			</div>

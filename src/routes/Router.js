@@ -5,6 +5,10 @@ import Login from "../pages/Login";
 import ProtectedRoute from "./ProtectedRoute";
 import ChatRoom from "../pages/ChatRoom";
 import NotFound from "../pages/NotFound";
+import Layout from "../layouts/Layout";
+import Register from "../pages/Register";
+import Profile from "../pages/Profile";
+import EditProfile from "../pages/EditProfile";
 
 const router = createBrowserRouter([
 	{
@@ -12,34 +16,47 @@ const router = createBrowserRouter([
 		element: <Root />,
 		children: [
 			{
-				path: "/",
-				element: <Home />,
-				index: true,
-			},
-			{
-				path: "/login",
-				element: <Login />,
-			},
-			{
-				element: <ProtectedRoute role="User" />,
+				element: <Layout />,
 				children: [
 					{
-						path: "/chat",
-						element: <ChatRoom />,
+						path: "/",
+						element: <Home />,
+						index: true,
 					},
-					// {
-					// 	path: "/profile",
-					// 	element: <Profile />,
-					// },
-					// {
-					// 	path: "/editprofile",
-					// 	element: <EditProfile />,
-					// },
+					{
+						path: "/home",
+						element: <Home />,
+					},
+					{
+						path: "/login",
+						element: <Login />,
+					},
+					{
+						path: "/register",
+						element: <Register />,
+					},
+					{
+						element: <ProtectedRoute role="User" />,
+						children: [
+							{
+								path: "/chat",
+								element: <ChatRoom />,
+							},
+							{
+								path: "/profile",
+								element: <Profile />,
+							},
+							{
+								path: "/editprofile",
+								element: <EditProfile />,
+							},
+						],
+					},
+					{
+						path: "*",
+						element: <NotFound />,
+					},
 				],
-			},
-			{
-				path: "*",
-				element: <NotFound />,
 			},
 		],
 	},

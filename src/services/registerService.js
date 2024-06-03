@@ -1,24 +1,16 @@
-import { deleteTokens, setTokens } from "./tokenService";
-
-export const register = async (username, email, password) => {
+export const serviceRegister = async (username, password, email) => {
 	const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
-	const response = await fetch(`${API_ENDPOINT}/auth/login`, {
+	const response = await fetch(`${API_ENDPOINT}/auth/register`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
 		},
-		body: JSON.stringify({ username, email, password }),
+		body: JSON.stringify({ username, password, email }),
 	});
 
 	if (response.ok) {
-		const data = await response.json();
-		setTokens(data.accessToken, data.refreshToken);
 		return { success: true };
 	} else {
-		return { success: false };
+		return { success: false, message: "Failed to register a new account!" };
 	}
-};
-
-export const logout = () => {
-	deleteTokens();
 };
